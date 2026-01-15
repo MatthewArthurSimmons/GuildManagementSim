@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="guildmanagementsim.client/guildmanagementsim.client.esproj">
+    <Build />
+    <Deploy />
+  </Project>
+  <Project Path="GuildManagementSim.Server/GuildManagementSim.Server.csproj" />
+</Solution>
