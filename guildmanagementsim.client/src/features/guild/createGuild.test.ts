@@ -36,3 +36,8 @@ describe('createGuild', () => {
         createGuild('id', 'Name', 'desc', [], 1, -1)
       ).toThrow()
     })
+    it('throws if level is less than 1', () => {
+      expect(() =>
+        createGuild('id', 'Name', 'desc', [], 0, 10)
+      ).toThrow()
+    })
