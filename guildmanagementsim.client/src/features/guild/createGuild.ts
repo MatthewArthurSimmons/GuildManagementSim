@@ -1,11 +1,12 @@
 import type { IGuild } from '../../domain/Guild';
+import type { IMember } from '../../domain/Member';
 export class InvalidGuildError extends Error { }
 
 export const createGuild = (
   id: string,
   name: string,
   description: string,
-  members: string[],
+  members: IMember[],
   level: number,
   gold: number
 ): IGuild => {
