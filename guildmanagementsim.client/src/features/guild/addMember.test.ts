@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { createGuild } from './createGuild'
-import { createMember } from './addMember'
+import { createMember } from './createMember'
 import { addMemberToGuild } from './addMember'
 
 describe('addMemberToGuild', () => {
