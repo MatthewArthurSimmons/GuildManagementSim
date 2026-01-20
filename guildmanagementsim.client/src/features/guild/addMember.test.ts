@@ -26,7 +26,7 @@ describe('addMemberToGuild', () => {
 
     expect(updatedGuild.members).toHaveLength(1);
     expect(updatedGuild.members[0]?.name).toBe('Ilona');
-    expect(guild.members).toHaveLength(0); // Original guild remains unchanged)
+    expect(guild.members).toHaveLength(0); // Original guild remains unchanged
   })
 
   it('throws on duplicate member (by Name)', () => {

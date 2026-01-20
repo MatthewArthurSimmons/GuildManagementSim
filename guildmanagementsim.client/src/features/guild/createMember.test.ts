@@ -7,6 +7,10 @@ describe('createMemberForGuild', () => {
     expect(memberToBeAdded.guildId).toBe('abc');
     expect(memberToBeAdded.name).toBe('Ilona');
   })
+
+  it('throws on invalid member name', () => {
+
+  })
 })
 
     

@@ -9,5 +9,6 @@ export const createMember = (
 ): IMember => {
   if (!name.trim()) throw new InvalidMemberError('Member name is required');
   if (upkeepCost < 0) throw new InvalidMemberError('Upkeep cost cannot be negative');
+  if (!['Idle', 'On Quest', 'Resting'].includes(status)) throw new InvalidMemberError('Member cannot have multiple statuses');
   return { guildId, name, upkeepCost, status };
 };
