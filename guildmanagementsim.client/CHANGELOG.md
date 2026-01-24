@@ -8,3 +8,6 @@ Added first proper Vitest Unit Test
 1-16-2026
 Updated addMember to create immutability and updated tests accordingly.
 1-17-2026
+Simone was sick, so I got less work in the past few days, but I was able to do a lot of studying.
+I fleshed out create member and add member and their corresponding test files
+1-22-2026

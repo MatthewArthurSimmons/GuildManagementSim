@@ -7,7 +7,6 @@ import path from 'path';
 import child_process from 'child_process';
 import { env } from 'process';
 import vue from '@vitejs/plugin-vue'
-import tailwindcss from '@tailwindcss/vite'
 
 const baseFolder =
     env.APPDATA !== undefined && env.APPDATA !== ''
@@ -41,7 +40,7 @@ const target = env.ASPNETCORE_HTTPS_PORT ? `https://localhost:${env.ASPNETCORE_H
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    plugins: [vue(), tailwindcss(),plugin()],
+    plugins: [vue(),plugin()],
     resolve: {
         alias: {
             '@': fileURLToPath(new URL('./src', import.meta.url))
