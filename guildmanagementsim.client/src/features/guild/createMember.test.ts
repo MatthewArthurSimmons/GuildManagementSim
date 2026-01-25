@@ -5,7 +5,7 @@ import { createMember, InvalidMemberError } from './createMember'
 describe('createMember', () => {
   it('creates a member to be added to the guild', () => {
     const memberToBeAdded = createMember('abc', 'Ilona', 5, 'Idle')
-    expect(memberToBeAdded.guildId).toBe('abc');
+    expect(memberToBeAdded.guildID).toBe('abc');
     expect(memberToBeAdded.name).toBe('Ilona');
   })
 

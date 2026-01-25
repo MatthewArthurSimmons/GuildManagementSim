@@ -4,7 +4,7 @@ import type { IMember } from "./Member";
 
 //It has members, resources, and various attributes.
 export interface IGuild {
-  id: string; // Unique identifier for the guild
+  guildID: string; // Unique identifier for the guild
   name: string; // Name of the guild
   description: string; // Description of the guild
   members: IMember[]; // List of members in the guild

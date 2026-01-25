@@ -1,43 +1,45 @@
-import { describe, it, expect } from 'vitest'
-import { createGuild } from './createGuild'
+import { describe, it, expect, beforeEach } from 'vitest'
+import { createGuild, InvalidGuildError } from './createGuild'
+import type { IGuild } from '../../domain/Guild';
 
 describe('createGuild', () => {
-  it('returns a guild with the provided fields', () => {
-    const guild = createGuild(
-      'abc',
+  let guild: IGuild
+
+  beforeEach(() => {
+
+    guild = createGuild(
       'Practice Guild',
       'A guild used for testing',
-      ['Matt', 'Jake'],
       1,
       10
-    )
+  )
 
-
-    expect(guild).toEqual({
-      id: 'abc',
-      name: 'Practice Guild',
-      description: 'A guild used for testing',
-      members: ['Matt', 'Jake'],
-      level: 1,
-      gold: 10,
-    })
   })
-})
 
+  it('returns a guild with the provided fields', () => {
+
+
+    expect(guild.name).toEqual(
+      'Practice Guild'
+    )
+  })
 
     it('throws if name is empty', () => {
       expect(() =>
-        createGuild('id', '   ', 'desc', [], 1, 0)
-      ).toThrow()
+        createGuild('   ', 'desc', 1, 0)
+      ).toThrow(InvalidGuildError)
     })
 
     it('throws if gold is negative', () => {
       expect(() =>
-        createGuild('id', 'Name', 'desc', [], 1, -1)
-      ).toThrow()
+        createGuild('Name', 'desc', 1, -1)
+      ).toThrow(InvalidGuildError)
     })
     it('throws if level is less than 1', () => {
       expect(() =>
-        createGuild('id', 'Name', 'desc', [], 0, 10)
-      ).toThrow()
-    })
+        createGuild('Name', 'desc', 0, 10)
+      ).toThrow(InvalidGuildError)
+  })
+})
+
+

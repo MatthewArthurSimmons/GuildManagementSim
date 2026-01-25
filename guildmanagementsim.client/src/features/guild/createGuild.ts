@@ -3,15 +3,15 @@ import type { IMember } from '../../domain/Member';
 export class InvalidGuildError extends Error { }
 
 export const createGuild = (
-  id: string,
   name: string,
   description: string,
-  members: IMember[],
   level: number,
   gold: number
 ): IGuild => {
-  if (!name.trim()) throw new InvalidGuildError('Guild name is required');
-  if (gold < 0) throw new InvalidGuildError('Gold cannot be negative');
-  if (level < 1) throw new InvalidGuildError('Level must be at least 1');
-  return { id, name, description, members, level, gold };
+  const guildID: string = crypto.randomUUID();
+  const members: IMember[] = [];
+  if (!name.trim() || name.length > 25) throw new InvalidGuildError('Invalid Guild Name');
+  if (!Number.isInteger(gold) || gold < 0) throw new InvalidGuildError('Gold cannot be negative or non int');
+  if (!Number.isInteger(level) || level < 1) throw new InvalidGuildError('Level must be at least 1 and int');
+  return { guildID, name, description, members, level, gold };
 };

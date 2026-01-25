@@ -2,7 +2,7 @@ import { MEMBER_STATUSES, type IMember, type MemberStatus } from '../../domain/M
 export class InvalidMemberError extends Error { }
 
 export const createMember = (
-  guildId: string,
+  guildID: string,
   name: string,
   upkeepCost: number,
   status: MemberStatus = 'Idle'
@@ -11,5 +11,5 @@ export const createMember = (
   if (!trimmedName || name.trim().length > 25) throw new InvalidMemberError('Invalid Member name');
   if (upkeepCost < 0 || !Number.isInteger(upkeepCost)) throw new InvalidMemberError('Invalid Upkeep Cost');
   if (!MEMBER_STATUSES.includes(status)) throw new InvalidMemberError('Invalid Member Status');
-  return { guildId, name, upkeepCost, status };
+  return { guildID, name, upkeepCost, status };
 };

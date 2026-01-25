@@ -4,10 +4,13 @@ import type { IGuild } from '../../domain/Guild';
 export class InvalidMemberError extends Error { }
 
 export const removeMemberFromGuild = (guild: IGuild, member: IMember) => {
-  const updatedGuild = guild.members.filter((m) => m["name"] !== member["name"]);
-  if (guild.members.includes(member)) {
-    return { ...guild, members: updatedGuild }
-  } else throw new InvalidMemberError('There is no member to remove');
+  const updatedMembers = guild.members.filter((m) => m["name"] !== member["name"]);
+  if (member.guildID !== guild.guildID) {
+    throw new InvalidMemberError('There is no member to remove');
+  } else if (guild.members.map((m) => m["name"] === member["name"]).length === updatedMembers.length) {
+    throw new InvalidMemberError('names do not match')
+  } else
+    return { ...guild, members: updatedMembers }
 }   
   
 

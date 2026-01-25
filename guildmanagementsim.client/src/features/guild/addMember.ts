@@ -3,7 +3,7 @@ import type { IGuild } from '../../domain/Guild';
 export class InvalidMemberError extends Error { }
 
 export const addMemberToGuild = (guild: IGuild, member: IMember): IGuild => {
-  if (member.guildId !== guild.id) {
+  if (member.guildID !== guild.guildID) {
     throw new InvalidMemberError('Member guildId does not match Guild id');
   }
 
