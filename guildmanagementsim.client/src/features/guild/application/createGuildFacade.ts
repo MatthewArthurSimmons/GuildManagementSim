@@ -1,3 +1,4 @@
+import { vi } from 'vitest'; 
 import { createGuild, InvalidGuildError } from '../createGuild'
 import type { CreateGuildFacadeResult } from './createGuildFacadeResult';
 
@@ -13,17 +14,22 @@ export const createGuildFacade = ((name: string, description: string, level: num
   }
   catch (err) {
     const guildError: CreateGuildFacadeResult = {
-      ok: false, error: { code: "VALIDATION", message: "Invalid guild options"} }
+      ok: false, error: {code: "UNEXPECTED", message: "Invalid guild options"} }
     if (err instanceof InvalidGuildError) {
       switch (err.message) {
         case "Invalid Guild Name":
+          guildError.error.code = "VALIDATION"
           guildError.error.field = "name";
           guildError.error.message = "Invalid Guild Name";
           break;
         case "Gold cannot be negative or non int":
+          guildError.error.code = "VALIDATION"
+          guildError.error.field = "gold";
           guildError.error.message = "Gold cannot be negative or non int";
           break;
         case "Level must be at least 1 and int":
+          guildError.error.code = "VALIDATION"
+          guildError.error.field = "level";
           guildError.error.message = "Level must be at least 1 and int";
           break;
       }
