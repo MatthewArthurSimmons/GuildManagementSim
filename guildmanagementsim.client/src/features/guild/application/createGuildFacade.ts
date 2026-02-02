@@ -1,4 +1,3 @@
-import { vi } from 'vitest'; 
 import { createGuild, InvalidGuildError } from '../createGuild'
 import type { CreateGuildFacadeResult } from './createGuildFacadeResult';
 

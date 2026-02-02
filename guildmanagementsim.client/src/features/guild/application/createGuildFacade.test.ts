@@ -1,5 +1,29 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi, beforeEach, beforeAll } from 'vitest'
+
+vi.mock('../createGuild', async () => {
+  const actual = await vi.importActual<typeof import('../createGuild')>('../createGuild');
+  return {
+    ...actual,
+    createGuild: vi.fn(),
+  };
+})
+
 import { createGuildFacade } from './createGuildFacade';
+import { createGuild, InvalidGuildError } from '../createGuild';
+
+const createGuildMock = vi.mocked(createGuild);
+let realCreateGuild: typeof createGuild;
+
+beforeAll(async () => {
+  const actual = await vi.importActual<typeof import('../createGuild')>('../createGuild')
+  realCreateGuild = actual.createGuild
+})
+
+// 4) Default behavior: real createGuild (so your “normal” tests keep working)
+beforeEach(() => {
+  createGuildMock.mockReset()
+  createGuildMock.mockImplementation(realCreateGuild)
+})
 
 describe('createGuildFacade', () => {
   it('creates a guild successfully with valid inputs', () => {
@@ -41,5 +65,50 @@ describe('createGuildFacade', () => {
       expect(guildFacadeFail.error.message).toBe("Gold cannot be negative or non int");
       expect(guildFacadeFail.error.field).toBe("gold");
     }
+  })
+})
+
+describe('createGuildFacade – dependency failure handling', () => {
+  it('returns ok:false when createGuild throws InvalidGuildError (known domain error)', () => {
+    createGuildMock.mockImplementationOnce(() => {
+      throw new InvalidGuildError('bad input')
+    })
+
+    // ACT
+    const result = createGuildFacade('Name', 'Desc', 1, 10)
+
+    expect(result.ok).toBe(false)
+
+    expect(createGuildMock).toHaveBeenCalledTimes(1)
+  })
+
+  it('returns ok:false with a generic message when createGuild throws an unknown error', () => {
+    createGuildMock.mockImplementationOnce(() => {
+      throw new Error('boom')
+    })
+
+    const result = createGuildFacade('Name', 'Desc', 1, 10)
+
+    expect(result.ok).toBe(false)
+
+    expect(createGuildMock).toHaveBeenCalledTimes(1)
+  })
+
+  it('returns ok:true when createGuild succeeds (optional sanity test)', () => {
+    createGuildMock.mockImplementationOnce(() => {
+      return {
+        guildId: 'abc',
+        name: 'Name',
+        description: 'Desc',
+        members: [],
+        level: 1,
+        gold: 10,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } as any
+    })
+
+    const result = createGuildFacade('Name', 'Desc', 1, 10)
+
+    expect(result.ok).toBe(true)
   })
 })
