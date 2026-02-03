@@ -1,15 +1,11 @@
 import { createGuild, InvalidGuildError } from '../createGuild'
 import type { CreateGuildFacadeResult } from './createGuildFacadeResult';
 
-//On success, return createGuild wrapper values
-//On failure, return error messages for each invariant
-
 export const createGuildFacade = ((name: string, description: string, level: number, gold: number) => {
   try {
     const createdGuild = createGuild(name, description, level, gold)
     const createdGuildSuccess: CreateGuildFacadeResult = { ok: true, data: { guild: createdGuild } }
     return createdGuildSuccess
-
   }
   catch (err) {
     const guildError: CreateGuildFacadeResult = {
