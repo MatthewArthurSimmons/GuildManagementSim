@@ -19,7 +19,6 @@ beforeAll(async () => {
   realCreateGuild = actual.createGuild
 })
 
-// 4) Default behavior: real createGuild (so your “normal” tests keep working)
 beforeEach(() => {
   createGuildMock.mockReset()
   createGuildMock.mockImplementation(realCreateGuild)

@@ -6,7 +6,7 @@ import type { CreateMemberFacadeResult } from './createMemberFacadeResult';
 export const createMemberFacade = ((guildID: string, name: string, upkeepCost: number, status: MemberStatus = 'Idle') => {
   try {
     const createdMember = createMember(guildID, name, upkeepCost, status);
-    const createdMemberSuccess: CreateMemberFacadeResult = { ok: true, data: { guild: createdMember } };
+    const createdMemberSuccess: CreateMemberFacadeResult = { ok: true, data: { member: createdMember } };
     return createdMemberSuccess;
   }
   catch (err) {
@@ -33,7 +33,7 @@ export const createMemberFacade = ((guildID: string, name: string, upkeepCost: n
           }
           return guildError;
         }
-        guildError.error.message = "Invalid Guild Error"
+        guildError.error.message = "Invalid Member Error"
         return guildError
     }
 })

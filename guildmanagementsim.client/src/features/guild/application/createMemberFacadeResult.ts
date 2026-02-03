@@ -3,7 +3,7 @@ import type { IMember } from "../../../domain/Member";
 export type CreateMemberFacadeResult = {
   ok: true;
   data: {
-    guild: IMember
+    member: IMember
   }
 } | {
   ok: false;
