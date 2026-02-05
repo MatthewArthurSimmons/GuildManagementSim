@@ -10,30 +10,30 @@ export const createMemberFacade = ((guildID: string, name: string, upkeepCost: n
     return createdMemberSuccess;
   }
   catch (err) {
-        const guildError: CreateMemberFacadeResult = {
+        const memberError: CreateMemberFacadeResult = {
           ok: false, error: { code: "UNEXPECTED", message: "Invalid member options" }
         }
         if (err instanceof InvalidMemberError) {
           switch (err.message) {
             case "Invalid Member Name":
-              guildError.error.code = "VALIDATION"
-              guildError.error.field = "name";
-              guildError.error.message = "Invalid Member Name";
+              memberError.error.code = "VALIDATION"
+              memberError.error.field = "name";
+              memberError.error.message = "Invalid Member Name";
               break;
             case "Invalid Upkeep Cost":
-              guildError.error.code = "VALIDATION"
-              guildError.error.field = "upkeepCost";
-              guildError.error.message = "Invalid Upkeep Cost";
+              memberError.error.code = "VALIDATION"
+              memberError.error.field = "upkeepCost";
+              memberError.error.message = "Invalid Upkeep Cost";
               break;
             case "Invalid Member Status":
-              guildError.error.code = "VALIDATION"
-              guildError.error.field = "status";
-              guildError.error.message = "Invalid Member Status";
+              memberError.error.code = "VALIDATION"
+              memberError.error.field = "status";
+              memberError.error.message = "Invalid Member Status";
               break;
           }
-          return guildError;
+          return memberError;
         }
-        guildError.error.message = "Invalid Member Error"
-        return guildError
+        memberError.error.message = "Invalid Member Error"
+        return memberError
     }
 })

@@ -63,6 +63,15 @@ describe('createMemberFacade – dependency failure handling', () => {
     expect(createMemberMock).toHaveBeenCalledTimes(1)
   })
 
+  it('returns ok:false when status is incorrect', () => {
+    createMemberMock.mockImplementationOnce(() => {
+      throw new InvalidMemberError('bad status')
+    })
+    const result = createMemberFacade('Name', 'Desc', 1, "Sleeping")
+    expect(result.ok).toBe(false)
+    expect(createMemberMock).toHaveBeenCalledTimes(1)
+  })
+
   it('returns ok:true when createMember succeeds', () => {
     createMemberMock.mockImplementationOnce(() => {
       return {

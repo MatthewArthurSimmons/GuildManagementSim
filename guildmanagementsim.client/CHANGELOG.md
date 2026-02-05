@@ -11,3 +11,5 @@ Updated addMember to create immutability and updated tests accordingly.
 Simone was sick, so I got less work in the past few days, but I was able to do a lot of studying.
 I fleshed out create member and add member and their corresponding test files
 1-22-2026
+In the process of adding the Facade pattern to the client structure.
+2-3-2026
